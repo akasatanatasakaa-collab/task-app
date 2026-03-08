@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タスク管理アプリ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ヘッダー -->
+    <header class="header">
+      <h1>📝 タスク管理</h1>
+      <span class="user-name">ゲスト</span>
+    </header>
+
+    <!-- タスク入力フォーム -->
+    <section class="form-section">
+      <form class="task-form" id="task-form">
+        <input
+          type="text"
+          class="task-input"
+          id="task-input"
+          placeholder="新しいタスクを入力..."
+          autocomplete="off"
+        />
+        <button type="submit" class="btn btn-primary">追加</button>
+      </form>
+    </section>
+
+    <!-- フィルターボタン -->
+    <section class="filter-section">
+      <button class="filter-btn active" data-filter="all">すべて</button>
+      <button class="filter-btn" data-filter="active">未完了</button>
+      <button class="filter-btn" data-filter="done">完了済み</button>
+    </section>
+
+    <!-- タスク一覧 -->
+    <section class="task-list-section">
+      <ul class="task-list" id="task-list"></ul>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+      <span>残り <strong id="remaining">0</strong> 件</span>
+      <button class="btn btn-small" id="clear-done">完了済みを削除</button>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
