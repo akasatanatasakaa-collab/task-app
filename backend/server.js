@@ -5,15 +5,20 @@ const bcrypt  = require('bcrypt');
 const jwt     = require('jsonwebtoken');
 const { Pool } = require('pg');
 
-const app       = express();
-const PORT      = 3001;
+const app        = express();
+const PORT       = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-key';
 
 // ===========================
 // ミドルウェア
 // ===========================
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://frontend-kappa-one-57.vercel.app',
+  ],
+}));
 app.use(express.json());
 
 
@@ -21,13 +26,19 @@ app.use(express.json());
 // DB接続
 // ===========================
 
-const pool = new Pool({
-  host:     process.env.DB_HOST,
-  port:     process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user:     process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-});
+// Render上ではDATABASE_URL、ローカルでは個別の環境変数を使う
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+    })
+  : new Pool({
+      host:     process.env.DB_HOST,
+      port:     process.env.DB_PORT,
+      database: process.env.DB_NAME,
+      user:     process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+    });
 
 
 // ===========================
